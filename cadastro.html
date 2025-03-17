@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste feito aqui -->
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="css/cadastro.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Cadastro de Usuário</h2>
+        <form id="formCadastro">
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+            </div>
+
+            <div class="input-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
+            </div>
+
+            <div class="input-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" name="endereco" placeholder="Digite seu endereço" required>
+            </div>
+
+            <div class="input-group">
+                <label for="nascimento">Data de Nascimento:</label>
+                <input type="date" id="nascimento" name="nascimento" required>
+            </div>
+
+            <div class="input-group">
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+            </div>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <script src="js/cadastro.js"></script>
+</body>
+</html>
