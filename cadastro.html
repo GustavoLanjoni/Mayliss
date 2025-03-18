@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste feito aqui -->
     <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/cadastro.css">
 </head>
+
 <body>
 
     <div class="form-container">
@@ -22,9 +25,24 @@
             </div>
 
             <div class="input-group">
+                <label for="senha">Senha:</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required
+                        style="padding-right: 40px;">
+                    <span onclick="toggleSenha()"
+                        style="position: absolute; right: 10px; cursor: pointer; color: #333;">
+                        <i id="iconeOlho" class="fa-solid fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="input-group">
                 <label for="telefone">Telefone:</label>
                 <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
             </div>
+
+
 
             <div class="input-group">
                 <label for="endereco">Endereço:</label>
@@ -55,5 +73,23 @@
     </div>
 
     <script src="js/cadastro.js"></script>
+
+    <script>
+        function toggleSenha() {
+            const inputSenha = document.getElementById('senha');
+            const icone = document.getElementById('iconeOlho');
+
+            if (inputSenha.type === 'password') {
+                inputSenha.type = 'text';
+                icone.classList.remove('fa-eye');
+                icone.classList.add('fa-eye-slash');
+            } else {
+                inputSenha.type = 'password';
+                icone.classList.remove('fa-eye-slash');
+                icone.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
+
 </html>

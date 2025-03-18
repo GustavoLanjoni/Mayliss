@@ -1,4 +1,4 @@
-document.getElementById('formCadastro').addEventListener('submit', async function(e) {
+document.getElementById('formCadastro').addEventListener('submit', async function (e) {
     e.preventDefault();
 
     const nome = document.getElementById('nome').value;
@@ -8,6 +8,8 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
     const nascimento = document.getElementById('nascimento').value;
     const sexo = document.getElementById('sexo').value;
     const cpf = document.getElementById('cpf').value;
+    const senha = document.getElementById('senha').value;
+
 
     const data = {
         nome,
@@ -16,16 +18,18 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
         endereco,
         nascimento,
         sexo,
-        cpf
+        cpf,
+        senha
     };
 
-    const response = await fetch('http://localhost:5000/api/cadastro', {
+    const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
+
 
     const result = await response.json();
     if (response.ok) {

@@ -47,7 +47,7 @@ app.post('/api/register', async (req, res) => {
       birthDate,
       gender,
       cpf,
-      password: hashedPassword,
+      password: hashedPassword,   // <- Corrigido aqui
     });
 
     await newUser.save();
@@ -58,28 +58,27 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+
 // Rota para login de um usuário
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body;  // password recebido aqui
 
   try {
-    // Verificando se o usuário existe
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Usuário não encontrado.' });
     }
 
     // Verificando a senha
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);  // usa password
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: 'Senha incorreta.' });
     }
 
-    // Gerando o token JWT
     const token = jwt.sign(
       { userId: user._id, email: user.email },
-      process.env.JWT_SECRET_KEY,  // Utilize uma variável de ambiente para a chave secreta
-      { expiresIn: '1h' }  // Expiração do token
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '1h' }
     );
 
     res.status(200).json({ message: 'Login bem-sucedido!', token });
