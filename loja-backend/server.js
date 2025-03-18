@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
 const User = require('./models/User');
 
 dotenv.config();
@@ -22,6 +23,33 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 }).then(() => console.log('Conectado ao MongoDB com sucesso!'))
     .catch(err => console.log('Erro ao conectar ao MongoDB: ', err));
+
+// Configuração do Nodemailer
+const transporter = nodemailer.createTransport({
+    service: 'gmail', // Você pode usar outro serviço, como Outlook ou Yahoo
+    auth: {
+        user: process.env.EMAIL_USER, // Coloque seu e-mail aqui
+        pass: process.env.EMAIL_PASS // Coloque sua senha aqui ou use variáveis de ambiente
+    }
+});
+
+// Função para enviar e-mail de boas-vindas
+const sendWelcomeEmail = (email, name) => {
+    const mailOptions = {
+        from: process.env.EMAIL_USER, // E-mail de origem
+        to: email, // E-mail do usuário
+        subject: 'Cadastro realizado com sucesso!',
+        text: `Olá ${name},\n\nSeu cadastro foi realizado com sucesso. Seja bem-vindo!`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Erro ao enviar e-mail:', error);
+        } else {
+            console.log('E-mail enviado: ' + info.response);
+        }
+    });
+};
 
 // Rota de cadastro
 app.post('/api/register', async (req, res) => {
@@ -47,6 +75,10 @@ app.post('/api/register', async (req, res) => {
         });
 
         await newUser.save();
+
+        // Enviar e-mail de boas-vindas
+        sendWelcomeEmail(email, name);
+
         res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
     } catch (err) {
         console.error(err);
