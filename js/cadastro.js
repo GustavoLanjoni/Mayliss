@@ -10,32 +10,34 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
     const cpf = document.getElementById('cpf').value;
     const senha = document.getElementById('senha').value;
 
-
     const data = {
-        nome,
+        name: nome,
         email,
-        telefone,
-        endereco,
-        nascimento,
-        sexo,
+        phone: telefone,
+        address: endereco,
+        birthDate: nascimento,
+        gender: sexo,
         cpf,
-        senha
+        password: senha
     };
 
-    const response = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    });
+    try {
+        const response = await fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
+        const result = await response.json();
 
-    const result = await response.json();
-    if (response.ok) {
-        alert('Cadastro realizado com sucesso!');
-        // Redirecionar para a página de login ou outra página
-    } else {
-        alert('Erro no cadastro: ' + result.message);
+        if (response.ok) {
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = "login.html"; // Se você tiver uma tela de login
+        } else {
+            alert('Erro no cadastro: ' + result.message);
+        }
+    } catch (error) {
+        alert('Erro na comunicação com o servidor.');
+        console.error(error);
     }
 });

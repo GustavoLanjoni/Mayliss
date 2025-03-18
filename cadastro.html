@@ -3,14 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajuste feito aqui -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Usuário</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/cadastro.css">
 </head>
 
 <body>
-
     <div class="form-container">
         <h2>Cadastro de Usuário</h2>
         <form id="formCadastro">
@@ -26,23 +25,18 @@
 
             <div class="input-group">
                 <label for="senha">Senha:</label>
-                <div style="position: relative; display: flex; align-items: center;">
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required
-                        style="padding-right: 40px;">
-                    <span onclick="toggleSenha()"
-                        style="position: absolute; right: 10px; cursor: pointer; color: #333;">
+                <div style="position: relative;">
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                    <span onclick="toggleSenha()" style="position: absolute; right: 10px; top: 8px; cursor: pointer;">
                         <i id="iconeOlho" class="fa-solid fa-eye"></i>
                     </span>
                 </div>
             </div>
 
-
             <div class="input-group">
                 <label for="telefone">Telefone:</label>
                 <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
             </div>
-
-
 
             <div class="input-group">
                 <label for="endereco">Endereço:</label>
@@ -57,9 +51,10 @@
             <div class="input-group">
                 <label for="sexo">Sexo:</label>
                 <select id="sexo" name="sexo" required>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                    <option value="outro">Outro</option>
+                    <option value="">Selecione</option>
+                    <option value="Male">Masculino</option>
+                    <option value="Female">Feminino</option>
+                    <option value="Other">Outro</option>
                 </select>
             </div>
 
@@ -73,7 +68,6 @@
     </div>
 
     <script src="js/cadastro.js"></script>
-
     <script>
         function toggleSenha() {
             const inputSenha = document.getElementById('senha');
@@ -91,5 +85,4 @@
         }
     </script>
 </body>
-
 </html>
