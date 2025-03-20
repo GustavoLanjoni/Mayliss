@@ -59,3 +59,26 @@ app.post('/api/cadastrar', async (req, res) => {
   }
 });
 
+//confirmação de criação de conta email!
+
+const nodemailer = require('nodemailer');
+
+// Função para enviar o e-mail de boas-vindas
+async function enviarEmailBoasVindas(nome, email) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'gustavosilva94514@gmail.com', // coloque seu email aqui
+            pass: '' // use senha de app ou senha gerada
+        }
+    });
+
+    const mailOptions = {
+        from: 'seuemail@gmail.com',
+        to: email,
+        subject: 'Bem-vindo à Mayliss Loja!',
+        html: `<h2>Olá, ${nome}!</h2><p>Seja muito bem-vindo à nossa plataforma! Sua conta foi criada com sucesso.</p><p>Estamos felizes por ter você com a gente! 😄</p>`
+    };
+
+    await transporter.sendMail(mailOptions);
+}
