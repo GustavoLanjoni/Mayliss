@@ -57,10 +57,17 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
             body: JSON.stringify(usuario)
         });
 
-        const resultado = await response.json();
+        const text = await response.text();  // Pega a resposta como texto
+        console.log(text);  // Imprime a resposta para ver o que o servidor retorna
 
-        if (response.ok) {
-            // Exibe a mensagem de sucesso com SweetAlert2
+        let resultado;
+        try {
+            resultado = JSON.parse(text);  // Tenta converter para JSON
+        } catch (error) {
+            console.error('Erro ao tentar converter para JSON:', error);
+        }
+        
+        if (resultado && response.ok) {
             Swal.fire({
                 icon: 'success',
                 title: 'Cadastro realizado com sucesso!',
@@ -72,7 +79,6 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
             });
             document.getElementById('formCadastro').reset();
         } else {
-            // Exibe mensagem de erro com SweetAlert2
             Swal.fire({
                 icon: 'error',
                 title: 'Erro ao cadastrar',

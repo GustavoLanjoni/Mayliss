@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('MongoDB conectado'))
-  .catch(err => console.error(err));
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
 
 // Definir o schema do usuário
 const userSchema = new mongoose.Schema({
@@ -58,7 +58,7 @@ app.get('/api/verificar-cpf', async (req, res) => {
             return res.json({ exists: false }); // CPF disponível para cadastro
         }
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao verificar CPF:', error);
         return res.status(500).json({ message: 'Erro ao verificar CPF' });
     }
 });
@@ -102,7 +102,7 @@ app.post('/api/cadastrar', async (req, res) => {
 
         res.status(201).json({ message: 'Usuário cadastrado e e-mail enviado com sucesso!' });
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao cadastrar usuário:', error);
         res.status(500).json({ message: 'Erro ao cadastrar usuário.' });
     }
 });
