@@ -1,4 +1,4 @@
-/* login.css */
+/* recuperacao.css */
 
 * {
     margin: 0;
@@ -42,8 +42,7 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="email"],
-input[type="password"] {
+input[type="text"] {
     padding: 12px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -83,41 +82,13 @@ button[type="submit"]:active {
         font-size: 20px;
     }
 
-    input[type="email"],
-    input[type="password"],
+    input[type="text"],
     button[type="submit"] {
         font-size: 14px;
     }
 }
 
-/* Ajustes para o campo de senha com ícone do olho */
-.senha-container {
-    position: relative;
-    width: 100%;
-}
-
-.senha-container input {
-    width: 100%;
-    padding-right: 40px; /* Espaço à direita para o ícone */
-    box-sizing: border-box; /* Evita que o padding afete o tamanho do input */
-}
-
-.senha-container i {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #555;
-    font-size: 18px;
-    transition: color 0.3s;
-}
-
-.senha-container i:hover {
-    color: #000;
-}
-
-/* Estilos para a parte inferior do formulário */
+/* Ajustes para a parte inferior do formulário */
 .informacoes {
     text-align: center;
     font-size: 14px;
@@ -125,19 +96,16 @@ button[type="submit"]:active {
     margin-top: 10px;
 }
 
-.senha-info,
-.criar-conta {
+.voltar-login {
     display: block;
-    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
-.link-senha,
-.link-criar-conta {
+.link-voltar-login {
     color: #007bff;
     text-decoration: none;
 }
 
-.link-senha:hover,
-.link-criar-conta:hover {
+.link-voltar-login:hover {
     text-decoration: underline;
 }

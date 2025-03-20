@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperação de Senha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/recuperacao.css">
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Recuperação de Senha</h2>
+        <form id="formRecuperacao">
+            <label for="cpf">CPF:</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+
+            <button type="submit">Recuperar Senha</button>
+
+            <p class="informacoes">
+                <span class="voltar-login">Já tem uma conta? <a href="login.html" class="link-voltar-login">Voltar para
+                        o login</a></span>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("formRecuperacao").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const cpf = document.getElementById("cpf").value;
+
+            // Enviar a requisição para o backend
+            fetch('http://localhost:3000/api/recuperar-senha', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cpf: cpf })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire(
+                        'Nova Senha Enviada!',
+                        'Uma nova senha foi enviada para o seu e-mail.',
+                        'success'
+                    );
+                })
+                .catch(error => {
+                    Swal.fire(
+                        'Erro!',
+                        'Ocorreu um erro ao enviar o e-mail.',
+                        'error'
+                    );
+                });
+        });
+    </script>
+</body>
+
+</html>

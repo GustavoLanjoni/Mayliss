@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
@@ -13,12 +14,21 @@
         <h2>Login</h2>
         <form id="formLogin">
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
 
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
+            <div class="senha-container">
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            </div>
 
             <button type="submit">Entrar</button>
+
+            <!-- Texto sobre a senha e link para criar conta -->
+            <p class="informacoes">
+                <span class="senha-info">Esqueceu a senha? <a href="recuperarSenha.html" class="link-senha">Recuperar senha</a></span>
+                <br>
+                <span class="criar-conta">Não tem uma conta? <a href="cadastro.html" class="link-criar-conta">Criar conta</a></span>
+            </p>
         </form>
     </div>
 
