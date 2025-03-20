@@ -25,3 +25,37 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+//cadastro
+app.post('/api/cadastrar', async (req, res) => {
+  const { nome, email, senha, telefone, endereco, nascimento, sexo, cpf } = req.body;
+
+  if (!nome || !email || !senha) {
+      return res.status(400).json({ message: 'Preencha todos os campos obrigatórios.' });
+  }
+
+  try {
+      const usuarioExiste = await User.findOne({ email });
+      if (usuarioExiste) {
+          return res.status(400).json({ message: 'Usuário já cadastrado.' });
+      }
+
+      const novoUsuario = new User({
+          nome,
+          email,
+          senha,
+          telefone,
+          endereco,
+          nascimento,
+          sexo,
+          cpf
+      });
+
+      await novoUsuario.save();
+      res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Erro no servidor.' });
+  }
+});
+
