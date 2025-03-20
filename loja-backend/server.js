@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 const port = 3000;
@@ -28,7 +29,7 @@ const userSchema = new mongoose.Schema({
     endereco: String,
     nascimento: Date,
     sexo: String,
-    cpf: String,
+    cpf: { type: String, unique: true }, // Garantir que o CPF seja único
     dataCadastro: { type: Date, default: Date.now }
 });
 
@@ -43,9 +44,43 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Rota para verificar se o CPF já está cadastrado
+app.get('/api/verificar-cpf', async (req, res) => {
+    const { cpf } = req.query;
+
+    try {
+        // Verificar se o CPF já existe no banco de dados
+        const usuarioExistente = await Usuario.findOne({ cpf });
+
+        if (usuarioExistente) {
+            return res.json({ exists: true }); // CPF já cadastrado
+        } else {
+            return res.json({ exists: false }); // CPF disponível para cadastro
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Erro ao verificar CPF' });
+    }
+});
+
 // Rota de cadastro
 app.post('/api/cadastrar', async (req, res) => {
+    const { cpf, senha } = req.body;
+
     try {
+        // Verificar se o CPF já está cadastrado
+        const usuarioExistente = await Usuario.findOne({ cpf });
+        
+        if (usuarioExistente) {
+            return res.status(400).json({ message: 'CPF já cadastrado' });
+        }
+
+        // Hash da senha para garantir que seja armazenada de forma segura
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(senha, salt);
+        req.body.senha = hashedPassword;
+
+        // Criar o novo usuário
         const novoUsuario = new Usuario(req.body);
         await novoUsuario.save();
 
