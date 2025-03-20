@@ -24,7 +24,7 @@ document.getElementById('formCadastro').addEventListener('submit', async functio
         const resultado = await response.json();
 
         if (response.ok) {
-            alert('Usuário cadastrado com sucesso!');
+            alert('Usuário cadastrado e e-mail de boas-vindas enviado!');
             document.getElementById('formCadastro').reset();
         } else {
             alert(`Erro ao cadastrar: ${resultado.message}`);
