@@ -236,86 +236,44 @@ app.post('/api/resetar-senha/:token', async (req, res) => {
     }
 });
 
-// Configuração do multer para o upload de imagens
+// Multer configuração para upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, '/loja-backend/public/uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 const upload = multer({ storage: storage });
 
-// Rota para salvar produto
+// Rota para adicionar produtos
 app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
-    const { nome, preco, descricao, categoria } = req.body;
-    const imagem = req.file ? req.file.filename : '';
-
-    const produto = new Produto({
-        nome,
-        preco,
-        descricao,
-        categoria,
-        imagem
-    });
-
     try {
-        await produto.save();
-        res.json({ message: 'Produto cadastrado com sucesso!' });
+        const novoProduto = new Produto({
+            nome: req.body.nome,
+            preco: req.body.preco,
+            descricao: req.body.descricao,
+            categoria: req.body.categoria,
+            imagem: req.file ? `/uploads/${req.file.filename}` : ''
+        });
+        await novoProduto.save();
+        res.status(201).json({ message: 'Produto cadastrado com sucesso!' });
     } catch (error) {
         console.error('Erro ao cadastrar produto:', error);
         res.status(500).json({ message: 'Erro ao cadastrar produto.' });
     }
 });
 
-// Rota para adicionar produto ao carrinho
-app.post('/api/carrinho/adicionar', async (req, res) => {
-    const { usuarioId, produtoId, quantidade } = req.body;
-
+// Listar produtos por categoria
+app.get('/api/produtos/:categoria', async (req, res) => {
+    const { categoria } = req.params;
     try {
-        let carrinho = await Carrinho.findOne({ usuarioId });
-
-        if (!carrinho) {
-            // Se o carrinho não existe, cria um novo
-            carrinho = new Carrinho({
-                usuarioId,
-                produtos: []
-            });
-        }
-
-        // Verifica se o produto já está no carrinho
-        const produtoExistente = carrinho.produtos.find(p => p.produtoId.toString() === produtoId);
-
-        if (produtoExistente) {
-            produtoExistente.quantidade += quantidade; // Se já existe, apenas aumenta a quantidade
-        } else {
-            carrinho.produtos.push({ produtoId, quantidade });
-        }
-
-        await carrinho.save();
-        res.json({ mensagem: 'Produto adicionado ao carrinho com sucesso!' });
+        const produtos = await Produto.find({ categoria });
+        res.json(produtos);
     } catch (error) {
-        console.error('Erro ao adicionar produto ao carrinho:', error);
-        res.status(500).json({ mensagem: 'Erro ao adicionar produto ao carrinho.' });
-    }
-});
-
-// Rota para visualizar carrinho
-app.get('/api/carrinho/:usuarioId', async (req, res) => {
-    const { usuarioId } = req.params;
-
-    try {
-        const carrinho = await Carrinho.findOne({ usuarioId }).populate('produtos.produtoId');
-
-        if (!carrinho) {
-            return res.status(404).json({ mensagem: 'Carrinho vazio ou não encontrado' });
-        }
-
-        res.json(carrinho);
-    } catch (error) {
-        console.error('Erro ao buscar carrinho:', error);
-        res.status(500).json({ mensagem: 'Erro ao buscar carrinho.' });
+        console.error('Erro ao listar produtos:', error);
+        res.status(500).json({ message: 'Erro ao buscar produtos.' });
     }
 });
 

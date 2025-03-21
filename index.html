@@ -117,112 +117,6 @@
         <p>Conheça nossos produtos</p>
         <h2>Produtos em alta</h2>
 
-        <div class="container-products">
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="productsLink" data-product-id="1">
-                <div class="product-info">
-                    <div class="product-images">
-                        <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
-                        <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
-                    </div>
-                    <div class="product-details">
-                        <p class="product-name">Sabonete Aromático</p>
-                        <p class="product-price">R$ 20,00</p>
-                        <button class="add-to-cart">Adicionar ao Carrinho</button>
-                    </div>
-                </div>
-            </a>
 
 
         </div>
@@ -247,27 +141,7 @@
 
     <!--ADD ao carrinho-->
     <script>
-        document.querySelector('.add-to-cart').addEventListener('click', async function () {
-            const usuarioId = 'id-do-usuario'; // Pega o ID do usuário, normalmente da sessão
-            const produtoId = 'id-do-produto'; // Pega o ID do produto, com base no botão clicado
-            const quantidade = 1; // Você pode obter a quantidade de um input
 
-            const response = await fetch('http://localhost:3000/api/adicionar-ao-carrinho', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ usuarioId, produtoId, quantidade })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message);
-            } else {
-                alert('Erro ao adicionar produto ao carrinho');
-            }
-        });
 
 
 
