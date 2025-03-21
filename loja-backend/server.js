@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');  // Para gerar senhas aleatórias
+const multer = require('multer');  // Para o upload de arquivos (imagens)
 
 const app = express();
 const port = 3000;
@@ -36,6 +37,18 @@ const userSchema = new mongoose.Schema({
 });
 
 const Usuario = mongoose.model('Usuario', userSchema);
+
+// Definir o schema do produto
+const produtoSchema = new mongoose.Schema({
+    nome: String,
+    preco: Number,
+    descricao: String,
+    categoria: String,
+    imagem: String,
+    dataCadastro: { type: Date, default: Date.now }
+});
+
+const Produto = mongoose.model('Produto', produtoSchema);
 
 // Configurar envio de e-mail com Nodemailer
 const transporter = nodemailer.createTransport({
@@ -206,6 +219,39 @@ app.post('/api/resetar-senha/:token', async (req, res) => {
     } catch (error) {
         console.error('Erro ao resetar senha:', error);
         res.status(500).json({ mensagem: 'Erro ao resetar a senha.' });
+    }
+});
+
+// Configuração do multer para o upload de imagens
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+
+// Rota para salvar produto
+app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
+    const { nome, preco, descricao, categoria } = req.body;
+    const imagem = req.file ? req.file.filename : '';
+
+    const produto = new Produto({
+        nome,
+        preco,
+        descricao,
+        categoria,
+        imagem
+    });
+
+    try {
+        await produto.save();
+        res.json({ message: 'Produto cadastrado com sucesso!' });
+    } catch (error) {
+        console.error('Erro ao cadastrar produto:', error);
+        res.status(500).json({ message: 'Erro ao cadastrar produto.' });
     }
 });
 

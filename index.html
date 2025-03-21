@@ -25,7 +25,7 @@
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Sobre</a></li>
                 <li class="dropdown">
-                    <a href="#">Serviços </a>
+                    <a href="#">Serviços</a>
                     <ul class="submenu">
                         <li><a href="#">Desenvolvimento Web</a></li>
                         <li><a href="#">Consultoria</a></li>
@@ -35,7 +35,21 @@
                 <li><a href="#">Contato</a></li>
             </ul>
         </nav>
+        
+        <!-- Adicionar ícones e barra de pesquisa -->
+        <div class="header-icons">
+            <div class="search-container">
+                <input type="text" placeholder="Buscar..." class="search-bar">
+                <a href="#" class="search-icon"><i class="fa fa-search"></i></a>
+            </div>
+            <div class="icons">
+                <a href="#" class="user-icon"><i class="fa fa-user"></i></a>
+                <a href="#" class="cart-icon"><i class="fa fa-shopping-cart"></i></a>
+            </div>
+        </div>
     </header>
+    
+    
 
     <!--Banners Principais-->
 
@@ -93,17 +107,40 @@
     </div>
 
 
+    <!--Produtos-->
 
+    <div class="products">
+        <p>Conheça nossos produtos</p>
+        <h2>Produtos em alta</h2>
+    
+        <div class="container-products">
+            <a href="#" class="productsLink">
+                <div class="product-info">
+                    <!-- Imagem normal -->
+                    <img class="product-image" src="img/saboneteT2.png" alt="produto 1">
+                    <!-- Imagem ao passar o mouse -->
+                    <img class="product-image-hover" src="img/saboneteT2.png" alt="produto 1 hover">
+                    <div class="product-details">
+                        <p class="product-name">Sabonete Aromático</p>
+                        <p class="product-price">R$ 20,00</p>
+                    </div>
+                </div>
+                <button class="add-to-cart">Adicionar ao Carrinho</button>
+            </a>
+        </div>
+    </div>
+    
+    
+    
 
-
-
-
-
+    
 
 
     <script src="js/script.js"></script>
+
     <script src="js/scriptSlideshow.js"></script>
     <script src="js/carroselCategory.js"></script>
+    <script src="js/animationButtona.js"></script>
 
 
 

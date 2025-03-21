@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel ADM - Loja</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/adm.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Painel ADM</h2>
+        <a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+        <a href="#add-product"><i class="fa-solid fa-plus"></i> Adicionar Produto</a>
+        <a href="#products-list"><i class="fa-solid fa-box"></i> Gerenciar Produtos</a>
+        <a href="#"><i class="fa-solid fa-calendar-day"></i> Vendas do dia</a>
+        <a href="#"><i class="fa-solid fa-calendar-week"></i> Vendas do mês</a>
+        <a href="#"><i class="fa-solid fa-users"></i> Usuários</a>
+        <a href="#"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </div>
+
+    <div class="content">
+        <div class="cards">
+            <div class="card">
+                <h3>Vendas Hoje</h3>
+                <p>R$ 1.200,00</p>
+            </div>
+            <div class="card">
+                <h3>Vendas Mês</h3>
+                <p>R$ 22.500,00</p>
+            </div>
+            <div class="card">
+                <h3>Produtos</h3>
+                <p>45 cadastrados</p>
+            </div>
+            <div class="card">
+                <h3>Usuários</h3>
+                <p>320</p>
+            </div>
+        </div>
+
+        <form action="http://localhost:3000/api/produtos" method="POST" enctype="multipart/form-data">
+            <input type="text" name="nome" placeholder="Nome do Produto" required>
+            <input type="number" name="preco" placeholder="Preço" required>
+            <textarea name="descricao" placeholder="Descrição" rows="3" required></textarea>
+            <input type="file" name="imagem" accept="image/*" required>
+            <select name="categoria" required>
+                <option value="">Selecione a categoria</option>
+                <option>Sabonetes</option>
+                <option>Cosméticos</option>
+                <option>Perfumes</option>
+            </select>
+            <button type="submit">Adicionar Produto</button>
+        </form>
+        
+
+        <div class="form-section" id="products-list">
+            <h3>Produtos Cadastrados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemplo de produto - Adicione mais dinamicamente com JS ou renderizando do backend -->
+                    <tr>
+                        <td><img src="img/saboneteT2.png" alt="Produto"></td>
+                        <td>Sabonete Natural</td>
+                        <td>R$ 29,90</td>
+                        <td>Sabonetes</td>
+                        <td><button>Editar</button> <button>Excluir</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
