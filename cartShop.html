@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="css/cartShop.css"> <!-- Adicione o seu arquivo de estilos CSS -->
+</head>
+<body>
+    <header>
+        <h1>Carrinho de Compras</h1>
+        <a href="index.html">Voltar para a loja</a>
+    </header>
+    
+    <section id="carrinho">
+        <div id="produtos-carrinho">
+            <!-- Os produtos serão listados aqui dinamicamente -->
+        </div>
+        <div id="total">
+            <p>Total: <span id="total-valor">R$ 0,00</span></p>
+        </div>
+        <button id="finalizar-compra">Finalizar Compra</button>
+    </section>
+
+    <script>
+        // Função para buscar os produtos do carrinho do usuário
+        async function obterCarrinho() {
+            const usuarioId = 'USUARIO_ID'; // Substitua pelo ID do usuário logado
+            
+            try {
+                const response = await fetch(`/api/carrinho/${usuarioId}`);
+                const carrinho = await response.json();
+
+                if (carrinho.produtos.length > 0) {
+                    // Mostrar os produtos no carrinho
+                    exibirProdutosCarrinho(carrinho.produtos);
+                } else {
+                    document.getElementById('produtos-carrinho').innerHTML = '<p>Seu carrinho está vazio.</p>';
+                }
+            } catch (error) {
+                console.error('Erro ao buscar carrinho:', error);
+                alert('Houve um erro ao carregar o carrinho.');
+            }
+        }
+
+        // Função para exibir os produtos no carrinho
+        function exibirProdutosCarrinho(produtos) {
+            const carrinhoDiv = document.getElementById('produtos-carrinho');
+            carrinhoDiv.innerHTML = ''; // Limpar conteúdo antigo
+
+            let total = 0;
+
+            produtos.forEach(item => {
+                const produto = item.produtoId;
+                const quantidade = item.quantidade;
+                const preco = produto.preco * quantidade;
+                total += preco;
+
+                const produtoDiv = document.createElement('div');
+                produtoDiv.classList.add('produto');
+
+                produtoDiv.innerHTML = `
+                    <img src="uploads/${produto.imagem}" alt="${produto.nome}" class="imagem-produto">
+                    <div class="detalhes-produto">
+                        <p><strong>${produto.nome}</strong></p>
+                        <p>Preço: R$ ${produto.preco.toFixed(2)}</p>
+                        <p>Quantidade: ${quantidade}</p>
+                        <p>Total: R$ ${preco.toFixed(2)}</p>
+                    </div>
+                `;
+
+                carrinhoDiv.appendChild(produtoDiv);
+            });
+
+            // Atualizar o total
+            document.getElementById('total-valor').innerText = `R$ ${total.toFixed(2)}`;
+        }
+
+        // Chamar a função para carregar o carrinho ao carregar a página
+        window.onload = obterCarrinho;
+    </script>
+</body>
+</html>

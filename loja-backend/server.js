@@ -50,6 +50,20 @@ const produtoSchema = new mongoose.Schema({
 
 const Produto = mongoose.model('Produto', produtoSchema);
 
+// Definir o schema do carrinho
+const carrinhoSchema = new mongoose.Schema({
+    usuarioId: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' },
+    produtos: [
+        {
+            produtoId: { type: mongoose.Schema.Types.ObjectId, ref: 'Produto' },
+            quantidade: Number
+        }
+    ],
+    dataCriacao: { type: Date, default: Date.now }
+});
+
+const Carrinho = mongoose.model('Carrinho', carrinhoSchema);
+
 // Configurar envio de e-mail com Nodemailer
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -252,6 +266,56 @@ app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
     } catch (error) {
         console.error('Erro ao cadastrar produto:', error);
         res.status(500).json({ message: 'Erro ao cadastrar produto.' });
+    }
+});
+
+// Rota para adicionar produto ao carrinho
+app.post('/api/carrinho/adicionar', async (req, res) => {
+    const { usuarioId, produtoId, quantidade } = req.body;
+
+    try {
+        let carrinho = await Carrinho.findOne({ usuarioId });
+
+        if (!carrinho) {
+            // Se o carrinho não existe, cria um novo
+            carrinho = new Carrinho({
+                usuarioId,
+                produtos: []
+            });
+        }
+
+        // Verifica se o produto já está no carrinho
+        const produtoExistente = carrinho.produtos.find(p => p.produtoId.toString() === produtoId);
+
+        if (produtoExistente) {
+            produtoExistente.quantidade += quantidade; // Se já existe, apenas aumenta a quantidade
+        } else {
+            carrinho.produtos.push({ produtoId, quantidade });
+        }
+
+        await carrinho.save();
+        res.json({ mensagem: 'Produto adicionado ao carrinho com sucesso!' });
+    } catch (error) {
+        console.error('Erro ao adicionar produto ao carrinho:', error);
+        res.status(500).json({ mensagem: 'Erro ao adicionar produto ao carrinho.' });
+    }
+});
+
+// Rota para visualizar carrinho
+app.get('/api/carrinho/:usuarioId', async (req, res) => {
+    const { usuarioId } = req.params;
+
+    try {
+        const carrinho = await Carrinho.findOne({ usuarioId }).populate('produtos.produtoId');
+
+        if (!carrinho) {
+            return res.status(404).json({ mensagem: 'Carrinho vazio ou não encontrado' });
+        }
+
+        res.json(carrinho);
+    } catch (error) {
+        console.error('Erro ao buscar carrinho:', error);
+        res.status(500).json({ mensagem: 'Erro ao buscar carrinho.' });
     }
 });
 
