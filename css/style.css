@@ -1,0 +1,90 @@
+/* Importando as fontes */
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Estilos do Cabeçalho */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111;
+    padding: 20px 40px;
+    color: #fff;
+  }
+  
+  header .logo a {
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    font-family: 'Playfair Display', serif; /* Fonte de luxo */
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    margin: 0 25px;
+    position: relative;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #ff9800; /* Cor de destaque ao passar o mouse */
+  }
+  
+  .dropdown .seta {
+    margin-left: 8px;
+    font-size: 18px;
+  }
+  
+  /* Estilo do submenu */
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    padding: 10px 0;
+    list-style: none;
+    margin: 0;
+    border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 180px;
+  }
+  
+  .submenu li a {
+    color: #fff;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submenu li a:hover {
+    background-color: #444;
+  }
+  
+  /* Exibe o submenu quando o link é hoverado */
+  .dropdown:hover .submenu {
+    display: block;
+  }
+  
+
+  
