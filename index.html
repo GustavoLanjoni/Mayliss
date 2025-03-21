@@ -54,6 +54,44 @@
     </div>
 
 
+    <!--Categorias-->
+
+    <div class="category">
+        <p>Compre por categorias</p>
+        <h2>Nossa seção de temporada</h2>
+
+        <div class="carousel-container">
+            <div class="carousel">
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 1">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 2">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 3">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 4">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 5">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 6">
+                </a>
+                <a href="#" class="categoryLink">
+                    <img src="img/saboneteT2.png" alt="Categoria 7">
+                </a>
+            </div>
+            <!-- Setas de navegação -->
+            <div class="carousel-navigation">
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -64,46 +102,14 @@
 
 
     <script src="js/script.js"></script>
+    <script src="js/scriptSlideshow.js"></script>
+    <script src="js/carroselCategory.js"></script>
 
-    <script>
-        // Script para slideshow
-        let currentSlide = 0; // Índice do slide atual
-        const slides = document.querySelectorAll('.slideshow .slide'); // Todos os slides
-        const totalSlides = slides.length;
 
-        // Função para mostrar o slide ativo
-        function showSlide(index) {
-            // Garantir que o índice esteja dentro do intervalo
-            if (index >= totalSlides) {
-                currentSlide = 0; // Volta para o primeiro slide
-            } else if (index < 0) {
-                currentSlide = totalSlides - 1; // Vai para o último slide
-            } else {
-                currentSlide = index;
-            }
 
-            // Esconde todos os slides
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-            });
 
-            // Exibe o slide ativo
-            slides[currentSlide].classList.add('active');
-        }
 
-        // Inicializar com o primeiro slide visível
-        showSlide(currentSlide);
 
-        // Adicionar eventos para as setas
-        document.querySelector('.prev').addEventListener('click', () => {
-            showSlide(currentSlide - 1); // Anterior
-        });
-
-        document.querySelector('.next').addEventListener('click', () => {
-            showSlide(currentSlide + 1); // Próximo
-        });
-
-    </script>
 </body>
 
 </html>

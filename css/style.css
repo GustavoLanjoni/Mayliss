@@ -47,7 +47,7 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #ff9800;
-    /* Cor de destaque ao passar o mouse */
+    
 }
 
 .dropdown .seta {
@@ -96,10 +96,10 @@ nav ul li a:hover {
 .slideshow {
     position: relative;
     width: 100%;
-    max-width: 1920px; /* Largura máxima para tela grande */
+    max-width: 1920px; 
     margin: 0 auto;
-    overflow: hidden; /* Esconde as imagens que saem da área visível */
-    height: 700px; /* Altura do slideshow */
+    overflow: hidden; 
+    height: 700px; 
 }
 
 .slideshow .slide {
@@ -111,7 +111,7 @@ nav ul li a:hover {
 .slideshow img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garantir que a imagem preencha o contêiner sem distorcer */
+    object-fit: cover; 
 }
 
 .slideshow .active {
@@ -149,3 +149,96 @@ nav ul li a:hover {
 /*SLIDE ACIMA*/
 
 
+/*CATEGORY ABAIXO*/
+
+.category {
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.category p {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.category h2 {
+    font-size: 29px;
+    color: #333;
+    margin: 10px 0;
+    font-family: 'Helvetica', sans-serif;
+}
+
+.categoryLink {
+    display: inline-block;
+    margin: 10px;
+    transition: transform 0.3s ease;
+}
+
+.categoryLink:hover {
+    transform: scale(1.05);
+}
+
+.categoryLink img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+}
+
+/* Container do carrossel */
+.carousel-container {
+    overflow: hidden; /* Esconde as imagens que saem da área visível */
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    cursor: grab; /* Mostra um cursor de 'arrastar' */
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    margin-top: 20px;
+}
+
+/* Estilo das âncoras dentro do carrossel (links) */
+.carousel a {
+    margin-right: 10px; /* Espaçamento entre as imagens */
+}
+
+/* Navegação (setas) */
+.carousel-navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.carousel-navigation button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-navigation button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-navigation .prev {
+    left: 10px;
+}
+
+.carousel-navigation .next {
+    right: 10px;
+}
+
+/*CATEGORY ACIMA*/
