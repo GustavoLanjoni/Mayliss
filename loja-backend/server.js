@@ -38,6 +38,26 @@ const userSchema = new mongoose.Schema({
 
 const Usuario = mongoose.model('Usuario', userSchema);
 
+// Rota para cadastro de usuário
+app.post('/cadastro', async (req, res) => {
+    try {
+        const novoUsuario = new Usuario(req.body);
+        await novoUsuario.save();
+        res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+    } catch (error) {
+        res.status(400).json({ message: "Erro ao cadastrar o usuário.", error });
+    }
+});
+
+// Rota para pegar o número de usuários cadastrados
+app.get('/usuarios', async (req, res) => {
+    try {
+        const usuariosCount = await Usuario.countDocuments();  // Conta o número de documentos na coleção 'Usuario'
+        res.json({ usuariosCount });  // Retorna o número de usuários cadastrados
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao buscar usuários', error });
+    }
+});
 // Definir o schema do produto
 const produtoSchema = new mongoose.Schema({
     nome: String,
@@ -226,7 +246,7 @@ app.post('/api/resetar-senha/:token', async (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(novaSenha, salt);
         usuario.senha = hashedPassword;
-        usuario.tokenRecuperacao = null; // Limpar o token de recuperação
+        usuario.tokenRecuperacao = null;
         await usuario.save();
 
         res.json({ mensagem: 'Senha resetada com sucesso!' });
@@ -236,16 +256,21 @@ app.post('/api/resetar-senha/:token', async (req, res) => {
     }
 });
 
-// Multer configuração para upload
+const path = require('path');  // Para trabalhar com caminhos de arquivos
+
+// Configuração do Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/loja-backend/public/uploads');
+        // Usando caminho relativo para o diretório public/uploads
+        cb(null, path.join(__dirname, 'public', 'uploads'));  // Usa __dirname para garantir o caminho correto
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
+        cb(null, Date.now() + path.extname(file.originalname));  // Garante um nome único para o arquivo
     }
 });
+
 const upload = multer({ storage: storage });
+
 
 // Rota para adicionar produtos
 app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
@@ -255,9 +280,9 @@ app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
             preco: req.body.preco,
             descricao: req.body.descricao,
             categoria: req.body.categoria,
-            imagem: req.file ? `/uploads/${req.file.filename}` : ''
+            imagem: req.file ? `/uploads/${req.file.filename}` : ''  // Referência da imagem no servidor
         });
-        await novoProduto.save();
+        await novoProduto.save();  // Salva o produto no MongoDB
         res.status(201).json({ message: 'Produto cadastrado com sucesso!' });
     } catch (error) {
         console.error('Erro ao cadastrar produto:', error);
@@ -266,16 +291,13 @@ app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
 });
 
 // Listar produtos por categoria
-app.get('/api/produtos/:categoria', async (req, res) => {
-    const { categoria } = req.params;
-    try {
-        const produtos = await Produto.find({ categoria });
-        res.json(produtos);
-    } catch (error) {
-        console.error('Erro ao listar produtos:', error);
-        res.status(500).json({ message: 'Erro ao buscar produtos.' });
-    }
-});
+fetch('http://localhost:3000/api/produtos/Sabonetes, Cosméticos, Perfumes, Limpeza Facial, Hidratação, Tratamentos, Protetor Solar')  // Passando múltiplas categorias separadas por vírgula
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);  // Exibe os produtos das categorias no console
+  })
+  .catch(error => console.error('Erro ao listar produtos:', error));
+
 
 // Inicializando o servidor
 app.listen(port, () => {

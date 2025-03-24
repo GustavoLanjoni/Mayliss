@@ -36,8 +36,8 @@
                 <p>45 cadastrados</p>
             </div>
             <div class="card">
-                <h3>Usuários</h3>
-                <p>320</p>
+                <h3>Usuários Cadastrados</h3>
+                <p id="usuarios-count">Carregando...</p>
             </div>
         </div>
 
@@ -79,12 +79,9 @@
                 <tbody id="product-table-body">
                     <!-- Produtos serão adicionados dinamicamente aqui -->
                 </tbody>
-
             </table>
         </div>
     </div>
-
-
 
     <script>
         async function carregarProdutos() {
@@ -93,7 +90,7 @@
                 const produtos = await resposta.json();
 
                 const tbody = document.getElementById('product-table-body');
-                tbody.innerHTML = ''; // limpa antes de adicionar
+                tbody.innerHTML = ''; // Limpa antes de adicionar
 
                 produtos.forEach(produto => {
                     const tr = document.createElement('tr');
@@ -125,10 +122,23 @@
             alert(`Função excluir para o produto: ${id}`);
         }
 
-        // Chama a função ao carregar a página
-        window.onload = carregarProdutos;
-    </script>
+        // Função para buscar o número de usuários cadastrados
+        async function carregarUsuarios() {
+            try {
+                const resposta = await fetch('http://localhost:3000/api/usuarios');
+                const data = await resposta.json();
+                document.getElementById('usuarios-count').textContent = `${data.usuariosCount} cadastrados`;
+            } catch (error) {
+                console.error('Erro ao carregar número de usuários:', error);
+            }
+        }
 
+        // Chama a função ao carregar a página
+        window.onload = () => {
+            carregarProdutos();
+            carregarUsuarios();
+        };
+    </script>
 </body>
 
 </html>
