@@ -292,12 +292,48 @@ app.post('/api/produtos', upload.single('imagem'), async (req, res) => {
 
 // Listar produtos por categoria
 fetch('http://localhost:3000/api/produtos/Sabonetes, Cosméticos, Perfumes, Limpeza Facial, Hidratação, Tratamentos, Protetor Solar')  // Passando múltiplas categorias separadas por vírgula
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);  // Exibe os produtos das categorias no console
-  })
-  .catch(error => console.error('Erro ao listar produtos:', error));
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);  // Exibe os produtos das categorias no console
+    })
+    .catch(error => console.error('Erro ao listar produtos:', error));
 
+
+
+
+// Definir onde as fotos serão armazenadas
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Defina o diretório de armazenamento
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)); // Nome único para o arquivo
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Rota para o upload da foto de perfil
+app.post('/upload', upload.single('foto'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send({ message: 'Nenhuma foto foi enviada.' });
+    }
+
+    // Aqui você pode salvar o caminho da imagem no banco de dados, se necessário
+    console.log('Foto enviada:', req.file);
+    res.status(200).json({
+        message: 'Foto de perfil atualizada!',
+        filePath: `/uploads/${req.file.filename}` // Retorna o caminho da foto
+    });
+});
+
+// Servir as imagens da pasta "uploads"
+app.use('/uploads', express.static('uploads'));
+
+// Iniciar o servidor
+app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`);
+});
 
 // Inicializando o servidor
 app.listen(port, () => {
