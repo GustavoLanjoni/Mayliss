@@ -3,14 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/user.css">
-    <title>User</title>
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="css/user.css"> <!-- Seu arquivo de CSS -->
 </head>
 <body>
-    
-    
+    <div class="container">
+        <h1>Perfil do Usuário</h1>
+        
+        <div class="profile-card">
+            <h2>Informações Pessoais</h2>
+            
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" value="Nome do Usuário" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" value="email@dominio.com" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" value="(11) 98765-4321">
+                </div>
+
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" id="endereco" value="Rua Exemplo, 123, Bairro, Cidade">
+                </div>
+
+                <div class="form-group">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <input type="date" id="dataNascimento" value="1990-01-01" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="sexo">Sexo</label>
+                    <input type="text" id="sexo" value="Masculino" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" value="123.456.789-00" readonly>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Salvar alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        
 
 
 
+    </script>
 </body>
 </html>
