@@ -289,9 +289,10 @@ nav .submenu li a:hover {
 }
 
 .carousel {
-    display: flex;
+
     transition: transform 0.5s ease;
     margin-top: 20px;
+    align-items: center;
 }
 
 /* Estilo das âncoras dentro do carrossel (links) */
