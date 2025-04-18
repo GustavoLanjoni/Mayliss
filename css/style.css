@@ -258,66 +258,87 @@ nav .submenu li a:hover {
 
 /*CATEGORY ABAIXO*/
 
+/* Container da categoria com estilo moderno */
 .category {
     text-align: center;
-    padding: 20px;
-    margin: 20px;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    
 }
 
+/* Título da categoria */
+.category h2 {
+    font-size: 32px;
+    color: #f39c12;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Texto da categoria */
 .category p {
     font-size: 18px;
-    color: #333;
-    margin: 10px 0;
-    font-weight: bold;
+    color: #ccc;
+    margin: 10px 0 30px;
+    font-weight: 500;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.category h2 {
-    font-size: 29px;
-    color: #333;
-    margin: 10px 0;
-    font-family: 'Helvetica', sans-serif;
-}
-
+/* Estilo dos links das categorias */
 .categoryLink {
     display: inline-block;
-    margin: 10px;
-    transition: transform 0.3s ease;
+    margin: 15px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .categoryLink:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
 }
 
+/* Estilo das imagens das categorias */
 .categoryLink img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     border-radius: 50%;
-    border: 2px solid #ddd;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Container do carrossel */
+.categoryLink:hover img {
+    border-color: #f39c12;
+    box-shadow: 0 10px 25px rgba(243, 156, 18, 0.5);
+}
+
+/* Container do carrossel com efeito moderno */
 .carousel-container {
-    overflow: hidden; /* Esconde as imagens que saem da área visível */
+    overflow: hidden;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 40px auto 0;
     position: relative;
-    cursor: grab; /* Mostra um cursor de 'arrastar' */
+    cursor: grab;
+    border-radius: 20px;
 }
 
+/* Linha do carrossel */
 .carousel {
-
+    display: flex;
     transition: transform 0.5s ease;
     margin-top: 20px;
     align-items: center;
+    padding: 10px;
 }
 
-/* Estilo das âncoras dentro do carrossel (links) */
+/* Espaçamento entre os itens do carrossel */
 .carousel a {
-    margin-right: 10px; /* Espaçamento entre as imagens */
+    margin-right: 20px;
 }
 
-/* Navegação (setas) */
+/* Navegação moderna (setas do carrossel) */
 .carousel-navigation {
     position: absolute;
     top: 50%;
@@ -325,29 +346,27 @@ nav .submenu li a:hover {
     display: flex;
     justify-content: space-between;
     transform: translateY(-50%);
+    padding: 0 15px;
 }
 
 .carousel-navigation button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
     border: none;
-    padding: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
+    font-size: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    backdrop-filter: blur(5px);
 }
 
 .carousel-navigation button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #f39c12;
+    color: #fff;
+    transform: scale(1.1);
 }
 
-.carousel-navigation .prev {
-    left: 10px;
-}
-
-.carousel-navigation .next {
-    right: 10px;
-}
 
 /*CATEGORY ACIMA*/
 
