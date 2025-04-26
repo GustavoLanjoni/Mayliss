@@ -1,0 +1,53 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Corpo da página */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Estilo das caixas de link */
+  .caixa-link {
+    display: block;
+    background-color: #ffffff;
+    color: #007bff;
+    text-decoration: none;
+    padding: 20px;
+    margin: 15px 0;
+    width: 300px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+  
+  /* Efeito ao passar o mouse */
+  .caixa-link:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Ajuste para centralizar os links */
+  body > a {
+    display: block;
+  }
+  
+  /* Se quiser deixar mais bonito ainda: centralizar em coluna */
+  body {
+    flex-direction: column;
+  }
+  
